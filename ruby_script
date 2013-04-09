@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby -Ku
+
+text = File.open(ARGV.first)
+
+result = {}
+text.each_line do |line|
+  elements = line.scan(/^(\w+) ([0-9]+ )?([MQC]) /)
+  result[elements[0][0]] ||= "" 
+  result[elements[0][0]] << elements[0][2] 
+end
+
+File.open(ARGV.last, 'w+'){|f| result.each{|k,v| f.puts "#{k} #{v}"}}
+
+
